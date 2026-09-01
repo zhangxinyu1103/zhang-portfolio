@@ -1,6 +1,14 @@
 const categories = ['全部', 'IP', '动画', '口播信息流', '宣传', 'AI', '其他'];
 
 const vodCdn = 'https://1477203917.vod-qcloud.com/645585b3vodtranscq1477203917';
+// 在这里填写作品的真实数据。作品名称必须与下方列表中的名称完全一致。
+// 格式示例：'作品名称': { views: '播放量', likes: '点赞数', shares: '转发数', comments: '评论数' },
+const workStats = {
+  '营收榜': { views: '491万', likes: '9万', shares: '12.8万' },
+  '小野介绍': { views: '17.4万', likes: '6738', shares: '3984' },
+  '2026热门潮玩ip': { views: '70.1万', likes: '1万', shares: '4163' }
+};
+
 const vodRows = [
   ['3d09eec25001834818048325683', '营收榜', '其他'],
   ['9ba47ae35001834818039257176', '小野介绍', '其他'],
@@ -52,7 +60,8 @@ const videos = vodRows
       cover: `${directory}/coverBySnapshot/coverBySnapshot_10_0.jpg`,
       playUrl,
       url: playUrl,
-      description: ''
+      description: '',
+      stats: workStats[title] || {}
     };
   })
   .sort((a, b) => categoryOrder.indexOf(a.category) - categoryOrder.indexOf(b.category))
