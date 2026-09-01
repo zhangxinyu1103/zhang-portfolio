@@ -34,7 +34,7 @@
 
   document.getElementById('root').innerHTML = `
     <div id="top" class="hero-stage">
-      <video class="hero-video" src="./assets/videos/hero-intro.mp4" autoplay muted loop playsinline preload="metadata" aria-label="zhang 的作品集首屏视频"></video>
+      <video class="hero-video" src="./assets/videos/hero-intro.mp4" autoplay muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5-page" preload="auto" aria-label="zhang 的作品集首屏视频"></video>
       <header class="header wrap">
         <a class="brand" href="#top">ZHANG<span>®</span></a>
         <nav><a href="#works">作品</a><a href="#about">关于</a><a href="#contact">联系</a></nav>
@@ -73,6 +73,21 @@
       </main>
     <footer class="wrap"><span>© 2026 ZHANG</span><a href="#top">回到顶部 ↑</a></footer>
     <div id="modal-root"></div>`;
+
+  const heroVideo = document.querySelector('.hero-video');
+  const startHeroVideo = () => {
+    if (!heroVideo) return;
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+    heroVideo.playsInline = true;
+    const playback = heroVideo.play();
+    if (playback) playback.catch(() => {});
+  };
+  heroVideo.addEventListener('canplay', startHeroVideo, { once: true });
+  document.addEventListener('WeixinJSBridgeReady', startHeroVideo, false);
+  window.addEventListener('pageshow', startHeroVideo);
+  document.addEventListener('touchstart', startHeroVideo, { once: true, passive: true });
+  startHeroVideo();
 
   const renderWorks = () => {
     const visibleVideos = activeCategory === '全部' ? videos : videos.filter((video) => video.category === activeCategory);
