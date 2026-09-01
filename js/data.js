@@ -1,6 +1,69 @@
-const videos = [
-  { id: 1, title: '图标 MG 动画', category: 'MG 动画', date: '2026', type: 'gif', url: './assets/videos/icon-mg-animation.gif', description: 'UI 图标动效设计与呈现。' },
-  { id: 2, title: '美一优 Logo 展示', category: '品牌动效', date: '2026', type: 'video', url: './assets/videos/meiyiyou-logo.mp4', description: '美一优 Logo 动态展示作品。' }
+const categories = ['全部', 'IP', '动画', '口播信息流', '宣传', 'AI', '其他'];
+
+const vodCdn = 'https://1477203917.vod-qcloud.com/645585b3vodtranscq1477203917';
+const vodRows = [
+  ['3d09eec25001834818048325683', '营收榜', '其他'],
+  ['9ba47ae35001834818039257176', '小野介绍', '其他'],
+  ['c1a03b3e5001834818050349536', '创意文字', '其他'],
+  ['5cce0d315001834818038878884', '文字踢飞', '其他'],
+  ['620ab4655001834818045860973', '光变炸物挂件', '其他'],
+  ['e33936635001834818040929871', '海外社媒', '其他'],
+  ['64e95be25001834818052749660', '2026热门潮玩ip', '其他'],
+  ['c19e12c05001834818050345776', '三小毛-露营之夜', 'AI'],
+  ['098f1a885001834818044388099', '三小毛-会逃跑的饼干', 'AI'],
+  ['573239e65001834818052188595', '三小毛-奇幻之旅', 'AI'],
+  ['73303fca5001834818035729858', '三小毛-外星猫家做客', 'AI'],
+  ['9ba58f655001834818039259077', '三小毛-真假Samuel', 'AI'],
+  ['64e83e845001834818052747538', '美一优工厂', '宣传'],
+  ['4e98cae05001834818038248723', '美一优宣传片', '宣传'],
+  ['5ccdfbc95001834818038878453', '振升活动快剪', '宣传'],
+  ['18211f975001834818034112818', '欧钻宣传片', '宣传'],
+  ['33d177f55001834818031255082', 'ZXY-对标-7', '口播信息流'],
+  ['41a991d65001834818031830561', 'ZXY-对标-6', '口播信息流'],
+  ['1dac0bd95001834818041145096', 'JL10.16-2-ZXY-2', '口播信息流'],
+  ['61fcfe685001834818045858933', 'JL10.15-3-ZXY-19', '口播信息流'],
+  ['f994759e5001834818013409936', 'JL9.26-6-ZXY-4', '口播信息流'],
+  ['8599b2125001834818032474201', 'CQX9.10-5-ZXY-10', '口播信息流'],
+  ['9ba520425001834818039258732', 'CQX9.9-2-ZXY-6', '口播信息流'],
+  ['c4d1f1dc5001834818036924135', '10.15-6-ZXY-对标3', '口播信息流'],
+  ['c4d16dfd5001834818036923335', '美一优logo-3', '动画'],
+  ['187e3b1d5001834818034167184', '美一优logo-1', '动画'],
+  ['f9a33f545001834818013413814', '美一优logo-2', '动画'],
+  ['733d46f65001834818035730063', '门窗3D样品', '动画'],
+  ['4e9832675001834818038247479', '于总访谈视频1', 'IP'],
+  ['c4c07edf5001834818036915705', '四十五正是闯的年纪', 'IP'],
+  ['3847d3005001834818031429864', '于总口播2', 'IP'],
+  ['33c19cb85001834818031249307', '于总口播1', 'IP'],
+  ['9cc2f1435001834817980400398', '访谈2', 'IP'],
+  ['41aa9d385001834818031832219', '于总vlog2', 'IP'],
+  ['b1c85f675001834818029364848', '于总vlog1', 'IP'],
+  ['188eaa585001834818034174091', 'IP视频', 'IP']
 ];
-const profile = { name: 'zhang', role: 'Motion Designer', phone: '15580509004', wechat: 'HY-QS24' };
-window.PORTFOLIO_DATA = { videos, profile };
+
+const categoryOrder = ['IP', '动画', '口播信息流', '宣传', 'AI', '其他'];
+const videos = vodRows
+  .map(([path, title, category]) => {
+    const directory = `${vodCdn}/${path}`;
+    const playUrl = `${directory}/v.f100040.mp4`;
+    return {
+      title,
+      category,
+      date: '2026',
+      type: 'video',
+      cover: `${directory}/coverBySnapshot/coverBySnapshot_10_0.jpg`,
+      playUrl,
+      url: playUrl,
+      description: ''
+    };
+  })
+  .sort((a, b) => categoryOrder.indexOf(a.category) - categoryOrder.indexOf(b.category))
+  .map((video, index) => ({ ...video, id: index + 1 }));
+
+const profile = {
+  name: 'zhang',
+  role: '新媒体短视频创作者',
+  phone: '15580509004',
+  wechat: 'HY-QS24'
+};
+
+window.PORTFOLIO_DATA = { categories, videos, profile };
