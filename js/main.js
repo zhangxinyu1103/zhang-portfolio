@@ -18,6 +18,12 @@
     if (video.type === 'gif') return `<img src="${mediaSource(video)}" alt="${video.title}">`;
     return `<video src="${mediaSource(video)}" controls autoplay playsinline preload="metadata" ${video.cover ? `poster="${video.cover}"` : ''}></video>`;
   };
+  const statsMedia = (stats = {}) => [
+    ['播放', stats.views],
+    ['点赞', stats.likes],
+    ['转发', stats.shares],
+    ['评论', stats.comments]
+  ].filter(([, value]) => value).map(([label, value]) => `<span class="work-stat"><b>${label}</b>${value}</span>`).join('');
   const card = (video) => `
     <article class="work-card" data-id="${video.id}" tabindex="0" aria-label="播放 ${video.title}">
       <div class="work-media">
@@ -29,7 +35,7 @@
         <div><p>${video.category}</p><h3>${video.title}</h3></div>
         <span>${video.date}</span>
       </div>
-      <div class="work-extra">${video.extra || ''}</div>
+      <div class="work-extra">${statsMedia(video.stats)}</div>
     </article>`;
 
   document.getElementById('root').innerHTML = `
