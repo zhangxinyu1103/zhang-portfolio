@@ -1,4 +1,4 @@
-const categories = ['全部', 'IP', '动画', '口播信息流', '宣传', 'AI', '其他'];
+const categoryOrder = ['其他', 'AI', '动画', '宣传', 'IP', '口播信息流'];
 
 const vodCdn = 'https://1477203917.vod-qcloud.com/645585b3vodtranscq1477203917';
 // 在这里填写作品的真实数据。作品名称必须与下方列表中的名称完全一致。
